@@ -73,13 +73,13 @@ const categories = [
         products:[{
             name:"Trucks Tracker Black",
             price:190000,
-            tableImage:wheelsTable1,
+            tableImage:truck1,
             image:truck1
         },
         {
             name:"LiteZooed Blue",
             price:120000,
-            tableImage:wheelsTable1,
+            tableImage:truck2,
             image:truck2
         },
         {

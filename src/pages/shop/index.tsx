@@ -11,6 +11,7 @@ import ReactToPrint from "react-to-print";
 import "./index.css";
 
 const Shop = () => {
+
   const [allObjects, setAllObjects] = useState<any>(Config.categories);
   const [defaultImg, setDefaultImg] = useState<string>("");
   const [indexActual, setIndexActual] = useState<number>(0);
@@ -43,6 +44,16 @@ const Shop = () => {
     }
   };
 
+  const getLast = async () => {
+    //await setIndexActual(indexActual-1)
+    if (indexActual - 1 >= 0) {
+      setActualObject(allObjects[indexActual - 1]);
+      setDefaultImg(allObjects[indexActual - 1]["default"]);
+      setIndexActual(indexActual - 1);
+    }
+  };
+
+
   const printPage = () => {};
 
   const newTable = () => {
@@ -57,21 +68,14 @@ const Shop = () => {
     setEndShop(false);
   };
 
-  const getLast = async () => {
-    //await setIndexActual(indexActual-1)
-    if (indexActual - 1 >= 0) {
-      setActualObject(allObjects[indexActual - 1]);
-      setDefaultImg(allObjects[indexActual - 1]["default"]);
-      setIndexActual(indexActual - 1);
-    }
-  };
 
   const changeShopping = (
     e: React.MouseEvent,
     name: string,
     type: string,
     price: number,
-    defaultImage: string
+    defaultImage: string,
+    image:string,
   ) => {
     if(!endShop){
       infoProduct[type].name = name;
@@ -79,7 +83,7 @@ const Shop = () => {
       infoProduct[type].image = defaultImage;
       console.log(infoProduct[type]);
       setInfoProduct({ ...infoProduct });
-      setDefaultImg(defaultImage);
+      setDefaultImg(image);
       changeTotal();
     }
 
@@ -151,7 +155,7 @@ const Shop = () => {
                 <div style={{ marginTop: -14 }}>
                   <ReactToPrint
                     trigger={() => (
-                      <button onClick={printPage} className="button-shop-end">
+                      <button  className="button-shop-end">
                         Guardar Tabla
                       </button>
                     )}
@@ -182,7 +186,8 @@ const Shop = () => {
                       product.name,
                       actualObject["name"],
                       product.price,
-                      product.image
+                      product.image,
+                      product.tableImage
                     )
                   }
                   name={product.name}
